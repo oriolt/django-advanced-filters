@@ -17,6 +17,7 @@ class AdvancedFilter(models.Model):
     class Meta:
         verbose_name = _('Advanced Filter')
         verbose_name_plural = _('Advanced Filters')
+        db_table = 'main_advanced_filter'
 
     title = models.CharField(max_length=255, null=False, blank=False, verbose_name=_('Title'))
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -56,3 +57,6 @@ class AdvancedFilter(models.Model):
         s = QSerializer(base64=True)
         d = s.loads(self.b64_query, raw=True)
         return s.get_field_values_list(d)
+
+    def __str__(self):
+        return '%s' % self.title
